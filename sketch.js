@@ -1,4 +1,8 @@
 let yellowColor, orangeColor, bridgeColor, redColor, lightBlueColor, darkBlueColor, blueColor, lakeColor, greenColor, darkGreenColor;
+
+let leftEyeSize = 20; // Initial size of left eye circle
+let rightEyeSize = 20; // Intial size of right eye circle
+
 function setup() {
   createCanvas(646, 800);
   // initial the colors
@@ -29,6 +33,14 @@ function draw() {
   drawSky();
   drawBridge();
   drawBodyshape();
+
+  //---Individual part------
+
+ // eyeInteraction();
+  //mousePressed();
+
+
+
 }
 function drawLake() {
   fill(blueColor);
@@ -552,14 +564,13 @@ function drawBodyshape() {
   curveVertex(288, 390); //11
   endShape();
 
-
-
-
   //eyes and mouth
   fill(lightBlueColor);
-  circle(275, 415, 20);
-  circle(310, 415, 20);
+  circle(275, 415, leftEyeSize);
+  circle(310, 415, rightEyeSize);
   ellipse(295, 460, 15, 30);
+
+
 
 
   //people in the far top left
@@ -599,4 +610,16 @@ function drawBodyshape() {
   endShape();
 
 
+}
+
+function mousePressed() {
+  // When the mouse is clicked, decrease the circle size
+  if (leftEyeSize > 5) {
+    leftEyeSize -= 5;
+    rightEyeSize +=10;
+  }
+  else{
+    leftEyeSize = 20;
+    rightEyeSize = 20;
+  }
 }
