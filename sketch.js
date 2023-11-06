@@ -3,14 +3,19 @@ let yellowColor, orangeColor, bridgeColor, redColor, lightBlueColor, darkBlueCol
 let leftEyeSize = 20; // Initial size of left eye circle
 let rightEyeSize = 20; // Intial size of right eye circle
 
+let MouseYPosition = 460;
+let MouseLength = 30;
+let FaceColour;
+
+
 function setup() {
   createCanvas(646, 800);
   // initial the colors
   let currentColors = [];
-  summerColors = [color(237, 199, 98), color(208, 179, 104), color(194, 158, 106), color(145, 59, 34), color(136, 153, 170), color(42, 47, 78), color(51, 63, 89), color(57, 73, 109), color(81, 103, 82), color(46, 61, 54)];
+  dayColors = [color(237, 199, 98), color(208, 179, 104), color(194, 158, 106), color(145, 59, 34), color(136, 153, 170), color(42, 47, 78), color(51, 63, 89), color(57, 73, 109), color(81, 103, 82), color(46, 61, 54)];
   // winterColors = [];
-  for (let i = 0; i < summerColors.length; i++) {
-    currentColors.push(summerColors[i]);
+  for (let i = 0; i < dayColors.length; i++) {
+    currentColors.push(dayColors[i]);
   }
   yellowColor = currentColors[0];
   orangeColor = currentColors[1];
@@ -22,6 +27,7 @@ function setup() {
   lakeColor = currentColors[7];
   greenColor = currentColors[8];
   darkGreenColor = currentColors[9];
+  FaceColour = greenColor;
 }
 function draw() {
   background(240);
@@ -35,9 +41,6 @@ function draw() {
   drawBodyshape();
 
   //---Individual part------
-
- // eyeInteraction();
-  //mousePressed();
 
 
 
@@ -401,31 +404,20 @@ function drawBodyshape() {
   curveVertex(180, 720); //20
   curveVertex(212, 785); //22
 
-
   //bottom
   curveVertex(324, 785); //22
-
-
-
 
   //curved hips right
   curveVertex(295, 720); //20
   curveVertex(313, 648); //18
 
-
-
-
   //elbow to middle arm
   curveVertex(331, 658); //18.3
   curveVertex(352, 648); //18
 
-
-
-
   //middle arm to shoulder
   curveVertex(360, 612); //17
   curveVertex(346, 522); //14.5
-
 
   //hand bump/shoulder
   curveVertex(342, 504); //14
@@ -434,13 +426,9 @@ function drawBodyshape() {
   curveVertex(352, 414); //11.5
   curveVertex(335, 375); //11
 
-
   curveVertex(288, 360); //10
   curveVertex(288, 360); //10
   endShape();
-
-
-
 
   //draw right arm outline
   fill(orangeColor);
@@ -459,7 +447,6 @@ function drawBodyshape() {
   curveVertex(226, 525); //14.6
   endShape();
 
-
   //draw left arm outline
   beginShape();
   curveVertex(349, 561); //15.6
@@ -473,7 +460,6 @@ function drawBodyshape() {
   curveVertex(349, 561); //15.6
   curveVertex(349, 561); //15.6
   endShape();
-
 
   //draw left hand outline below shoulders
   beginShape();
@@ -489,7 +475,6 @@ function drawBodyshape() {
   curveVertex(250, 375); //10.3
   endShape();
 
-
   //draw right hand outline below shoulders
   beginShape();
   curveVertex(330, 380); //10.3
@@ -503,9 +488,6 @@ function drawBodyshape() {
   curveVertex(330, 380); //10.3
   curveVertex(330, 380); //10.3
   endShape();
-
-
-
 
   //draw left shadow bottom
   beginShape();
@@ -524,9 +506,6 @@ function drawBodyshape() {
   curveVertex(280, 622); //17.3
   endShape();
 
-
-
-
   //draw right shadow bottom
   beginShape();
   curveVertex(237, 648); //18
@@ -544,12 +523,9 @@ function drawBodyshape() {
   curveVertex(237, 648); //18
   endShape();
 
-
-
-
   //face outline
   noStroke();
-  fill(greenColor);
+  fill(FaceColour);
   beginShape();
   curveVertex(288, 390); //11
   curveVertex(288, 390); //11
@@ -568,10 +544,7 @@ function drawBodyshape() {
   fill(lightBlueColor);
   circle(275, 415, leftEyeSize);
   circle(310, 415, rightEyeSize);
-  ellipse(295, 460, 15, 30);
-
-
-
+  ellipse(295, MouseYPosition, 15, MouseLength);
 
   //people in the far top left
   fill(darkBlueColor);
@@ -609,17 +582,28 @@ function drawBodyshape() {
   curveVertex(43, 375); //8.5
   endShape();
 
-
 }
 
 function mousePressed() {
-  // When the mouse is clicked, decrease the circle size
+  // When the mouse is clicked, decrease left eye size and increase right eye size
+  // When mouse is clicked increase mouth size as well
   if (leftEyeSize > 5) {
     leftEyeSize -= 5;
     rightEyeSize +=10;
+    MouseLength += 20;
+    MouseYPosition += 10;
   }
   else{
     leftEyeSize = 20;
     rightEyeSize = 20;
   }
+}
+
+function keyPressed() {
+  //When key 1 pressed, face coulour changes
+  if(key === '1'){
+    FaceColour = color(random(255), random(255), random(255));
+  }
+
+
 }
